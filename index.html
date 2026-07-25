@@ -4,39 +4,64 @@
         <title>Vibe! Calendar Display</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="UTF-8">
-        <meta http-equiv="refresh" content="30">
+        <meta http-equiv="refresh" content="10">
         <style>
-            .grid-container{
-                display: grid;
-                grid-template-columns: 33% 33% 33%;
-            }
-            .mycontainer {
-                display: flex;
+            * {
+                box-sizing: border-box;
             }
 
-            .mycontainer > div {
-                width: 33%;
+            .top-image {
+                display: flex;
+                width: 1024px;
+                height: 512px;
+                padding: 0px;
+                margin: 0px;
+            }
+
+            .next-event {
+                background-color: #ff1929;
+                color: #12122b;
+                width: 1024px;
+                height: 128px;
+                font-family: sans-serif;
+            }
+
+            .box-container {
+                width: 1024px;
+                height: 512px;
+                padding: 0px;
+                margin: 0px;
+            }
+            .box {
+                float: left;
+                width: 33.33%;
+                padding: 50px;
             }
         </style>
     </head>
     <body>
-        <div class="grid-container">
-            <div style="background-color: #FFF4A3;">
-            <h2>London</h2>
-            <p>London is the capital city of England.</p>
-            <p>London has over 9 million inhabitants.</p>
+        <script>
+            const p = new URLSearchParams(location.search);
+            if (p.get("title"))    document.getElementById("title").textContent    = p.get("title");
+            if (p.get("subtitle")) document.getElementById("subtitle").textContent = p.get("subtitle");
+            if (p.get("theme"))    document.body.dataset.theme = p.get("theme");
+        </script>
+        <div class="top-image">
+            <img src="https://picsum.photos/1024/512"/>
+        </div>
+        <div class="next-event">
+            <p id="title">Olive Sings Live!</p>
+            <p id="subtitle">Subtitle Here</p>
+        </div>
+        <div class="box-container">
+            <div class="box" style="background-color: aqua;">
+                <p id="theme">This is the theme</p>
             </div>
-
-            <div style="background-color: #FFC0C7;">
-            <h2>Oslo</h2>
-            <p>Oslo is the capital city of Norway.</p>
-            <p>Oslo has over 700,000 inhabitants.</p>
+            <div class="box" style="background-color: coral;">
+                test2
             </div>
-
-            <div style="background-color: #D9EEE1;">
-            <h2>Rome</h2>
-            <p>Rome is the capital city of Italy.</p>
-            <p>Rome has over 4 million inhabitants.</p>
+            <div class="box" style="background-color: gold;">
+                test3
             </div>
         </div>
     </body>
