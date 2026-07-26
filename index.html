@@ -5,13 +5,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="UTF-8">
         <meta http-equiv="refresh" content="10">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Questrial|Open Sans">
+
         <style>
             * {
                 box-sizing: border-box;
             }
 
+            p {
+                margin: 0px;
+                padding: 0px;
+            }
+
             .top-image {
-                display: flex;
                 width: 1024px;
                 height: 512px;
                 padding: 0px;
@@ -23,21 +29,64 @@
                 color: #12122b;
                 width: 1024px;
                 height: 128px;
-                font-family: sans-serif;
+                font-family:'Questrial', Calibri, 'Trebuchet MS', sans-serif;
+                font-size: 36px;
+                padding-left: 20px;
+                padding-top: 15px;
+                margin: 0px;
             }
 
-            .box-container {
+            .coming-events-container {
                 width: 1024px;
-                height: 512px;
+                height: 384px;
                 padding: 0px;
                 margin: 0px;
             }
-            .box {
-                float: left;
-                width: 33.33%;
+
+            .coming-events-table {
+                width: 100%;
                 height: 100%;
-                padding: 50px;
+                background-color: #12122b;
+                color: #ff1929;
+                font-size: 32px;
+                font-family:'Questrial', Calibri, 'Trebuchet MS', sans-serif;
+                font-style: italic;
+                padding: 10px;
             }
+
+            table {
+                table-layout: fixed;
+            }
+
+            table tr th:nth-child(1),
+            table tr td:nth-child(1) {
+                text-align: left;
+                padding: 5px;
+                height: 64px;
+            }
+
+            table tr th:nth-child(2),
+            table tr td:nth-child(2) {
+                text-align: right;
+                padding: 5px;
+                height: 64px;
+            }
+
+            .event-date {
+                float: left;
+                width: 50%;
+                height: 100%;
+                padding: 10px;
+                list-style-type: none;
+            }
+
+            .event-title {
+                float: left;
+                width: 50%;
+                height: 100%;
+                padding: 0px;
+            }
+
         </style>
     </head>
     <body>
@@ -45,25 +94,44 @@
             <img src="https://picsum.photos/1024/512"/>
         </div>
         <div class="next-event">
-            <p id="title">Samuel James</p>
-            <p id="subtitle">Subtitle Here</p>
+            <p id="nextEvent" style="font-weight:bold;">Next: Olive Sings Live!</p>
+            <p id="nextEventDate" style="font-size: 24px; font-weight:lighter">Saturday 7/25, 9-10pm</p>
         </div>
-        <div class="box-container">
-            <div class="box" style="background-color: aqua;">
-                <p id="theme">This is the theme</p>
-            </div>
-            <div class="box" style="background-color: coral;">
-                test2
-            </div>
-            <div class="box" style="background-color: gold;">
-                test3
-            </div>
+        <div class="coming-events-container">
+            <table class="coming-events-table">
+                <tr>
+                    <td id="date1">Date 1</td>
+                    <td id="title1">Title 1</td>
+                </tr>
+                <tr>
+                    <td id="date2">Date 2</td>
+                    <td id="title2">Title 2</td>
+                </tr>
+                <tr>
+                    <td id="date3">Date 3</td>
+                    <td id="title3">Title 3</td>
+                </tr>
+                <tr>
+                    <td id="date4">Date 4</td>
+                    <td id="title4">Title 4</td>
+                </tr>
+                <tr>
+                    <td id="date5"></td>
+                    <td id="title5"></td>
+                </tr>
+                <tr>
+                    <td id="date6"></td>
+                    <td id="title6"></td>
+                </tr>
+            </table>
         </div>
+        <!--
         <script>
             const p = new URLSearchParams(location.search);
             if (p.get("title"))    document.getElementById("title").textContent    = p.get("title");
             if (p.get("subtitle")) document.getElementById("subtitle").textContent = p.get("subtitle");
-            // if (p.get("theme"))    document.body.dataset.theme = p.get("theme");
+            if (p.get("theme"))    document.body.dataset.theme = p.get("theme");
         </script>
+        -->
     </body>
 </html>
