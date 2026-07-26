@@ -10,6 +10,8 @@
         <style>
             * {
                 box-sizing: border-box;
+                padding: 0px;
+                margin: 0px;
             }
 
             p {
@@ -128,9 +130,16 @@
         <!--
         <script>
             const p = new URLSearchParams(location.search);
-            if (p.get("title"))    document.getElementById("title").textContent    = p.get("title");
-            if (p.get("subtitle")) document.getElementById("subtitle").textContent = p.get("subtitle");
-            if (p.get("theme"))    document.body.dataset.theme = p.get("theme");
+            let cfg = {};
+            try { cfg = JSON.parse(p.get("data") || "{}"); }
+            catch (e) { console.error("Bad config JSON:", e); }
+
+            if (cfg.title)    document.getElementById("title").textContent    = cfg.title;
+            if (cfg.subtitle) document.getElementById("subtitle").textContent = cfg.subtitle;
+            if (cfg.theme)    document.body.dataset.theme = cfg.theme;
+            if (Array.isArray(cfg.hours))
+                document.getElementById("hours").innerHTML =
+                cfg.hours.map(h => `<li>${h}</li>`).join("");
         </script>
         -->
     </body>
