@@ -2,153 +2,23 @@
 <html leng="en-us">
     <head>
         <title>Vibe! Calendar Display</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">"
         <meta charset="UTF-8">
-        <meta http-equiv="refresh" content="60">
+        <meta http-equiv="refresh" content="10">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Questrial|Open Sans">
-
-        <style>
-            * {
-                box-sizing: border-box;
-                padding: 0px;
-                margin: 0px;
-            }
-
-            p {
-                margin: 0px;
-                padding: 0px;
-            }
-
-            .top-image {
-                width: 1024px;
-                height: 512px;
-                padding: 0px;
-                margin: 0px;
-            }
-
-            .next-event {
-                background-color: #ff1929;
-                color: #12122b;
-                width: 1024px;
-                height: 128px;
-                font-family:'Questrial', Calibri, 'Trebuchet MS', sans-serif;
-                font-size: 36px;
-                padding-left: 20px;
-                padding-top: 15px;
-                margin: 0px;
-            }
-
-            .coming-events-container {
-                width: 1024px;
-                height: 384px;
-                padding: 0px;
-                margin: 0px;
-            }
-
-            .coming-events-table {
-                width: 100%;
-                height: 100%;
-                background-color: #12122b;
-                color: #976ad3;
-                font-size: 32px;
-                font-family: sans-serif;
-                font-weight: bold;
-                padding: 10px;
-            }
-
-            table {
-                table-layout: fixed;
-            }
-
-            table tr th:nth-child(1),
-            table tr td:nth-child(1) {
-                text-align: left;
-                padding: 5px;
-                height: 64px;
-            }
-
-            table tr th:nth-child(2),
-            table tr td:nth-child(2) {
-                text-align: right;
-                padding: 5px;
-                height: 64px;
-            }
-
-            .event-date {
-                float: left;
-                width: 50%;
-                height: 100%;
-                padding: 10px;
-                list-style-type: none;
-            }
-
-            .event-title {
-                float: left;
-                width: 50%;
-                height: 100%;
-                padding: 0px;
-            }
-
-        </style>
+        <link rel="stylesheet" href="calendar.css">
     </head>
     <body>
-        <div class="top-image">
-            <img src="https://picsum.photos/1024/512"/>
+        <div class="fixed-page-container">
+            <div class="top-image">
+                <img src="https://picsum.photos/1024/512"/>
+            </div>
+            <div class="next-event">
+                <p id="nextEvent" style="font-weight:bold;">Next: Olive Sings Live!</p>
+                <p id="nextEventDate" style="font-size: 24px; font-weight:lighter">Saturday 7/25, 9-10pm</p>
+            </div>
+            <table id="event-table" class="event-table"></table>
         </div>
-        <div class="next-event">
-            <p id="nextEvent" style="font-weight:bold;">Next: Olive Sings Live!</p>
-            <p id="nextEventDate" style="font-size: 24px; font-weight:lighter">Saturday 7/25, 9-10pm</p>
-        </div>
-        <div class="coming-events-container">
-            <table id="event-table" class="coming-events-table"></table>
-        </div>
-        <!--
-        <script>
-            const p = new URLSearchParams(location.search);
-            let cfg = {};
-            try { cfg = JSON.parse(p.get("data") || "{}"); }
-            catch (e) { console.error("Bad config JSON:", e); }
-
-            if (cfg.title)    document.getElementById("title").textContent    = cfg.title;
-            if (cfg.subtitle) document.getElementById("subtitle").textContent = cfg.subtitle;
-            if (cfg.theme)    document.body.dataset.theme = cfg.theme;
-            if (Array.isArray(cfg.hours))
-                document.getElementById("hours").innerHTML =
-                cfg.hours.map(h => `<li>${h}</li>`).join("");
-        </script>
-        -->
-        <script>
-            const eventTable = document.getElementById('event-table');
-
-            // fetch the JSON data from the file path
-            fetch('calendarData.json')
-                .then(response => 
-                {
-                    if(!response.ok) 
-                    {
-                        throw new Error('Network response error');
-                    }
-                    return response.json();
-                })
-                .then(data =>
-                {
-                    data.forEach(calendarEvent =>
-                    {
-                        // target the events table
-                        const tableBody = document.getElementById('coming-events-table');
-
-                        // insert a new row at the end
-                        const newRow = tableBody.insertRow(-1);
-
-                        // insert cells into that row
-                        const leftCell = newRow.insertCell(0);
-                        const rightCell = newRow.insertCell(1);
-
-                        // add data to the cells
-                        leftCell.textContext = `${calendarEvent.date}, ${calendarEvent.time}`;
-                        rightCell.textContext = `${calendarEvent.title}`;
-                    })
-                })
-        </script>
+        <script src="calendar.js"></script>
     </body>
 </html>
