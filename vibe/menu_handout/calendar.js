@@ -81,8 +81,8 @@ function renderTable(eventsJson)
                     <td class="date-label">
                         ${localDate}<br>
                         <span class="time-label">${localStart} - ${localEnd}
-                            <span style="text-transform: none">(SLT)
-                            </span>
+                            <!-- <span style="text-transform: none">(SLT)
+                            </span> -->
                         </span>
                     </td>
                 </tr>
