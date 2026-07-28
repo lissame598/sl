@@ -1,4 +1,17 @@
 [
+ 
+     {
+        "date": "2026-08-05",
+        "startTime": "7pm",
+        "endTime": "11pm",
+        "title": "A Movie Night"
+    },
+    {
+        "date": "2026-07-28",
+        "startTime": "12pm",
+        "endTime": "1pm",
+        "title": "D Movie Night"
+    },
     {
         "date": "2026-07-28", 
         "startTime": "7pm",
@@ -18,19 +31,19 @@
         "title": "Buy One Get One Free"
     },
     {
-        "date": "2026-08-05",
+        "date": "2026-08-10",
         "startTime": "7pm",
         "endTime": "11pm",
         "title": "Movie Night"
     },
     {
-        "date": "2026-08-05",
+        "date": "2026-08-06",
         "startTime": "7pm",
         "endTime": "11pm",
         "title": "B Movie Night"
     },
     {
-        "date": "2026-08-05",
+        "date": "2026-08-08",
         "startTime": "7pm",
         "endTime": "11pm",
         "title": "C Movie Night"

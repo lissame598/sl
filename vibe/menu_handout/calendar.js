@@ -43,8 +43,8 @@ function renderTable(eventsJson)
     const timeFormatter = new Intl.DateTimeFormat(navigator.language, { timeStyle: 'short'});
 
     const processedEvents = eventsJson
-        .map((event, index) => {
-            let upNext = false;
+        // map events to proper ISO dates/times
+        .map(event => {
             // convert "7pm" -> "19:00"
             const start24 = parseTimeTo24h(event.startTime);
             const end24 = parseTimeTo24h(event.endTime);
@@ -53,25 +53,19 @@ function renderTable(eventsJson)
             const startIso = `${event.date}T${start24}:00-07:00`;
             const endIso = `${event.date}T${end24}:00-07:00`;
 
-            if( index === 0 )
-            {
-                upNext = true;
-            }
-
             return {
-                nextEvent: upNext, 
                 title: event.title,
                 startDateObj: new Date(startIso),
                 endDateObj: new Date(endIso)
             };
         })
-        // discard any events that are past
-        .filter( event => event.endDateObj > now )
         // sort chronologically by start time
-        .sort((a, b) => a.startDateObj - b.startDateObj);
+        .sort((a, b) => a.startDateObj - b.startDateObj)
+        // discard any events that are past or are at index 0
+        .filter( event => event.endDateObj > now )
 
     // build out the html table rows
-    eventTable.innerHTML = processedEvents.map( event => {
+    eventTable.innerHTML = processedEvents.map( (event, index) => {
         // format text into localized date & time
         const localDate = dateFormatter.format(event.startDateObj);
         const localStart = timeFormatter.format(event.startDateObj);
@@ -79,13 +73,37 @@ function renderTable(eventsJson)
 
         let html = '';
 
-        if( !event.nextEvent )
+        if( index != 0 )
         {
             html += `
                 <tr>
                     <td>${event.title}</td>
-                    <td class="date-label">${localDate}<br><span class="time-label">${localStart} - ${localEnd} <span style="text-transform: none">(SLT)</span></span></td>
+                    <td class="date-label">
+                        ${localDate}<br>
+                        <span class="time-label">${localStart} - ${localEnd}
+                            <span style="text-transform: none">(SLT)
+                            </span>
+                        </span>
+                    </td>
                 </tr>
+            `;
+        }
+
+        return html;
+    }).join('');
+
+    upNext.innerHTML = processedEvents.map( (event, index) => {
+        const localDate = dateFormatter.format(event.startDateObj);
+        const localStart = timeFormatter.format(event.startDateObj);
+        const localEnd = timeFormatter.format(event.endDateObj);
+
+        let html = '';
+        
+        if( index === 0 )
+        {
+            html += `
+                <p style="font-weight:bold;">Next: ${event.title}</p>
+                <p style="font-size: 0.8em; font-weight:lighter">${localDate}, ${localStart} - ${localEnd}</p>
             `;
         }
         return html;
@@ -93,6 +111,7 @@ function renderTable(eventsJson)
 }
 
 const eventTable = document.getElementById('event-table');
+const upNext = document.getElementById('up-next');
 let htmlRows = '';
 
 // fetch the JSON data from the file path
