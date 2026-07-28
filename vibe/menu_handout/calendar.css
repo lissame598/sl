@@ -18,13 +18,13 @@ html, body {
 }
 
 .fixed-page-container {
-    width: 1024px;
-    min-width: 1024px;
-    max-width: 1024px;
+    width: 1022px;
+    min-width: 1022px;
+    max-width: 1022px;
 
-    height: 1024px;
-    min-height: 1024px;
-    max-height: 1024px;
+    height: 1022px;
+    min-height: 1022px;
+    max-height: 1022px;
 
     background-color: #1a1a1a;
     margin: 0px;
