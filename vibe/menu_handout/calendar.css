@@ -1,9 +1,8 @@
-/* * {
-    box-sizing: border-box;
-    padding: 0px;
-    margin: 0px;
+::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
 }
-*/
 
 html, body {
     margin: 0;
@@ -14,6 +13,8 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 .fixed-page-container {
@@ -26,6 +27,7 @@ html, body {
     max-height: 1024px;
 
     background-color: #1a1a1a;
+    margin: 0px;
     padding: 0px;
 
     box-sizing: border-box; /* includes padding in 1024px calculation */
