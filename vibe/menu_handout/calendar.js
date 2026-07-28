@@ -40,10 +40,10 @@ function renderTable(eventsJson)
 
     // format using user's automated system locale config
     const dateFormatter = new Intl.DateTimeFormat(navigator.language, { dateStyle: 'full' });
-    const timeFormatter = new Intl.DateTimeFormat(navigator.language, {timeStyle: 'short'});
+    const timeFormatter = new Intl.DateTimeFormat(navigator.language, { timeStyle: 'short'});
 
     const processedEvents = eventsJson
-        .map(event => {
+        .map((event, index) => {
             // convert "7pm" -> "19:00"
             const start24 = parseTimeTo24h(event.startTime);
             const end24 = parseTimeTo24h(event.endTime);
@@ -52,7 +52,17 @@ function renderTable(eventsJson)
             const startIso = `${event.date}T${start24}:00-07:00`;
             const endIso = `${event.date}T${end24}:00-07:00`;
 
+            if( index === 0 )
+            {
+                let upNext = true;
+            }
+            else
+            {
+                let upNext = false;
+            }
+
             return {
+                nextEvent: upNext, 
                 title: event.title,
                 startDateObj: new Date(startIso),
                 endDateObj: new Date(endIso)
@@ -72,7 +82,7 @@ function renderTable(eventsJson)
 
         let html = '';
 
-        if( isUserInSLT() )
+        if( !event.upNext )
         {
             html += `
                 <tr>
@@ -81,16 +91,6 @@ function renderTable(eventsJson)
                 </tr>
             `;
         }
-        else
-        {
-            html += `
-                <tr>
-                    <td>${event.title}</td>
-                    <td class="date-label">${localDate}<br><span class="time-label">${localStart} - ${localEnd}</span></td>
-                </tr>
-            `;
-        }
-
         return html;
     }).join('');
 }
