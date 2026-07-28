@@ -44,6 +44,7 @@ function renderTable(eventsJson)
 
     const processedEvents = eventsJson
         .map((event, index) => {
+            let upNext = false;
             // convert "7pm" -> "19:00"
             const start24 = parseTimeTo24h(event.startTime);
             const end24 = parseTimeTo24h(event.endTime);
@@ -54,11 +55,7 @@ function renderTable(eventsJson)
 
             if( index === 0 )
             {
-                let upNext = true;
-            }
-            else
-            {
-                let upNext = false;
+                upNext = true;
             }
 
             return {
@@ -82,7 +79,7 @@ function renderTable(eventsJson)
 
         let html = '';
 
-        if( !event.upNext )
+        if( !event.nextEvent )
         {
             html += `
                 <tr>
