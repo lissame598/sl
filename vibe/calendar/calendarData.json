@@ -28,5 +28,11 @@
         "startTime": "11am",
         "endTime": "11:45am",
         "title": "Amphi Sings Karaoke!"
+    },
+    {
+        "date": "2026-08-07",
+        "startTime": "8pm",
+        "endTime": "9pm",
+        "title": "Fuzzy Takes the Stage"
     }
 ]
