@@ -30,6 +30,13 @@ html, body {
     scrollbar-width: none;
 }
 
+.top-image {
+    width: 1024px;
+    height: 512px;
+    padding: 0px;
+    margin: 0px;
+}
+
 .fixed-page-container {
     width: 1022px;
     min-width: 1022px;
