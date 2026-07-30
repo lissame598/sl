@@ -115,7 +115,7 @@ const upNext = document.getElementById('up-next');
 let htmlRows = '';
 
 // fetch the JSON data from the file path
-fetch('calendarData.json')
+fetch('calendarData.json', {cache: 'no-store'})
     .then(response => 
     {
         if(!response.ok) 

@@ -6,11 +6,10 @@
         <meta charset="UTF-8">
         <!-- <meta http-equiv="refresh" content="10"> -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Questrial|Open Sans">
-        <link rel="stylesheet" href="calendar.css">
+        <!-- change the v=# when calendar.css changes to force a relatively quick reload -->
+        <link rel="stylesheet" href="calendar.css?v=3">
     </head>
     <body>
-        <div><h1 style="color:white;"">Calendar Build 2</h1></div>
-        <!--
         <div class="fixed-page-container">
             <div class="top-image">
                 <img src="https://lissame598.github.io/sl/vibe/graphics/1x/Artboard_2.png"/>
@@ -18,7 +17,10 @@
             <div id="up-next" class="next-event"></div>
             <table id="event-table" class="event-table"></table>
         </div>
-        <script src="calendar.js"></script>
+        <!-- change the v=# when calendar.js changes to force a relatively quick reload 
+             note that calendarData.json changes will automatically force a reload since
+             the javascript is instructed to keep no cache of the JSON file.
         -->
+        <script src="calendar.js?v=3"></script>
     </body>
 </html>
