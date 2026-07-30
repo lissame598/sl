@@ -22,5 +22,11 @@
         "startTime": "7pm",
         "endTime": "11pm",
         "title": "Melissa Sings Karaoke!"
+    },
+    {
+        "date": "2026-08-12",
+        "startTime": "9pm",
+        "endTime": "11pm",
+        "title": "Amphi Sings Karaoke!"
     }
 ]
