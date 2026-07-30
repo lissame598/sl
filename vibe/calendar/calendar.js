@@ -126,6 +126,7 @@ fetch('calendarData.json')
     })
     .then(eventsJson =>
     {
+        console.log("Properly fetched JSON file. Rendering new table.");
         renderTable(eventsJson);
     })
     .catch(error => console.error('Error fetching or processing JSON: ', error));
