@@ -1,16 +1,3 @@
-/*            const p = new URLSearchParams(location.search);
-            let cfg = {};
-            try { cfg = JSON.parse(p.get("data") || "{}"); }
-            catch (e) { console.error("Bad config JSON:", e); }
-
-            if (cfg.title)    document.getElementById("title").textContent    = cfg.title;
-            if (cfg.subtitle) document.getElementById("subtitle").textContent = cfg.subtitle;
-            if (cfg.theme)    document.body.dataset.theme = cfg.theme;
-            if (Array.isArray(cfg.hours))
-                document.getElementById("hours").innerHTML =
-                cfg.hours.map(h => `<li>${h}</li>`).join("");
-*/
-
 function parseTimeTo24h( timeStr )
 {
     const match = timeStr.toLowerCase().match(/^(\d+)(?::(\d+))?\s*(am|pm)$/);
@@ -115,7 +102,7 @@ const upNext = document.getElementById('up-next');
 let htmlRows = '';
 
 // fetch the JSON data from the file path
-fetch('calendarData.json')
+fetch('calendarData.json', {cache: 'no-store'})
     .then(response => 
     {
         if(!response.ok) 
@@ -126,6 +113,7 @@ fetch('calendarData.json')
     })
     .then(eventsJson =>
     {
+        console.log("Properly fetched JSON file. Rendering new table.");
         renderTable(eventsJson);
     })
     .catch(error => console.error('Error fetching or processing JSON: ', error));
