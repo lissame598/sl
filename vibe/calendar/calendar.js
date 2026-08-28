@@ -1,10 +1,14 @@
 function parseTimeTo24h( timeStr )
 {
     const match = timeStr.toLowerCase().match(/^(\d+)(?::(\d+))?\s*(am|pm)$/);
-    if(!match) return "00:00";
+    if(!match)
+    {
+        console.warn(`Could not parse time string: "${timeStr}", defaulting to 00:00`);
+        return "00:00";
+    }
 
     let hours = parseInt(match[1], 10);
-    const minutes = match[2] ? match[2] : "00";
+    const minutes = match[2] ? match[2].padStart(2, '0') : "00";
     const ampm = match[3];
 
     if(ampm === "pm" && hours < 12) hours += 12;
@@ -20,36 +24,82 @@ function isUserInSLT()
     return userTimeZone === 'America/Los_Angeles';
 }
 
+// returns the correct UTC offset string for Pacific time on a given
+// YYYY-MM-DD date, accounting for DST (PDT -07:00 vs PST -08:00)
+function getPacificOffset(isoDateStr)
+{
+    const probeDate = new Date(`${isoDateStr}T12:00:00Z`);
+
+    if(isNaN(probeDate.getTime()))
+    {
+        console.warn(`getPacificOffset received an invalid date: "${isoDateStr}", defaulting to -08:00`);
+        return "-08:00";
+    }
+
+    const formatter = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'America/Los_Angeles',
+        timeZoneName: 'shortOffset'
+    });
+
+    const offsetPart = formatter.formatToParts(probeDate)
+        .find(part => part.type === 'timeZoneName')?.value;
+
+    const match = offsetPart ? offsetPart.match(/GMT([+-]\d+)/) : null;
+    const offsetHours = match ? parseInt(match[1], 10) : -8;
+
+    const sign = offsetHours < 0 ? '-' : '+';
+    const absHours = String(Math.abs(offsetHours)).padStart(2, '0');
+
+    return `${sign}${absHours}:00`;
+}
+
 function renderTable(eventsJson)
 {
     const now = new Date();
     const eventTable = document.getElementById('event-table');
+    const showSltLabel = !isUserInSLT();
 
     // format using user's automated system locale config
     const dateFormatter = new Intl.DateTimeFormat(navigator.language, { dateStyle: 'full' });
     const timeFormatter = new Intl.DateTimeFormat(navigator.language, { timeStyle: 'short'});
 
-    const processedEvents = eventsJson
-        // map events to proper ISO dates/times
-        .map(event => {
-            // convert "7pm" -> "19:00"
+const processedEvents = eventsJson
+    .map(event => {
+        try {
             const start24 = parseTimeTo24h(event.startTime);
             const end24 = parseTimeTo24h(event.endTime);
 
-            // build ISO string assuming source is pacific time (SLT)
-            const startIso = `${event.date}T${start24}:00-07:00`;
-            const endIso = `${event.date}T${end24}:00-07:00`;
+            const dateMatch = String(event.date).trim().match(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
+            if(!dateMatch)
+            {
+                console.warn(`Skipping event with unparseable date:`, event);
+                return null;
+            }
+            const [, month, day, year] = dateMatch;
+            const isoDate = `${year}-${month.padStart(2,'0')}-${day.padStart(2,'0')}`;
 
-            return {
-                title: event.title,
-                startDateObj: new Date(startIso),
-                endDateObj: new Date(endIso)
-            };
-        })
-        // sort chronologically by start time
-        .sort((a, b) => a.startDateObj - b.startDateObj)
-        // discard any events that are past or are at index 0
-        .filter( event => event.endDateObj > now )
+            const offset = getPacificOffset(isoDate);
+            const startIso = `${isoDate}T${start24}:00${offset}`;
+            const endIso = `${isoDate}T${end24}:00${offset}`;
+
+            const startDateObj = new Date(startIso);
+            const endDateObj = new Date(endIso);
+
+            if(isNaN(startDateObj) || isNaN(endDateObj))
+            {
+                console.warn(`Skipping event with invalid resulting date:`, event, { startIso, endIso });
+                return null;
+            }
+
+            return { title: event.title, startDateObj, endDateObj };
+        } catch(err) {
+            console.warn(`Error processing event, skipping:`, event, err);
+            return null;
+        }
+    })
+    .filter(event => event !== null)
+    .sort((a, b) => a.startDateObj - b.startDateObj)
+    .filter(event => event.endDateObj > now)
 
     // build out the html table rows
     eventTable.innerHTML = processedEvents.map( (event, index) => {
@@ -68,8 +118,7 @@ function renderTable(eventsJson)
                     <td class="date-label">
                         ${localDate}<br>
                         <span class="time-label">${localStart} - ${localEnd}
-                            <!-- <span style="text-transform: none">(SLT)
-                            </span> -->
+                            ${showSltLabel ? '<span style="text-transform: none">(SLT)</span>' : ''}
                         </span>
                     </td>
                 </tr>
@@ -90,7 +139,7 @@ function renderTable(eventsJson)
         {
             html += `
                 <p style="font-weight:bold;">Next: ${event.title}</p>
-                <p style="font-size: 0.8em; font-weight:lighter">${localDate}, ${localStart} - ${localEnd}</p>
+                <p style="font-size: 0.8em; font-weight:lighter">${localDate}, ${localStart} - ${localEnd}${showSltLabel ? ' (SLT)' : ''}</p>
             `;
         }
         return html;

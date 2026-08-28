@@ -1,10 +1,8 @@
 [
-    {   "date": "2026-08-21",       "startTime": "7pm",         "endTime": "8pm",           "title": "Olive Sings Karaoke!"     },
-    {   "date": "2026-08-22",       "startTime": "7:30am",      "endTime": "8am",           "title": "Tapdancing for Tips"      },
-    {   "date": "2026-08-23",       "startTime": "9pm",         "endTime": "11pm",          "title": "Buy One Get One Free"     },
-    {   "date": "2026-08-24",       "startTime": "7pm",         "endTime": "11pm",          "title": "Melissa Sings Karaoke!"   },
-    {   "date": "2026-08-25",       "startTime": "11am",        "endTime": "11:45am",       "title": "Amphi Sings Karaoke!"     },
-    {   "date": "2026-08-27",       "startTime": "8pm",         "endTime": "9pm",           "title": "Vera Takes the Stage"     },
-    {   "date": "",                 "startTime": "",            "endTime": "",              "title": ""                         },
-    {   "date": "",                 "startTime": "",            "endTime": "",              "title": ""                         }
+    {   "date": "08-29-2026",       "startTime": "6am",         "endTime": "9am",           "title": "Amorous Metro: Mirdiam"     },
+    {   "date": "08-29-2026",       "startTime": "2pm",         "endTime": "4pm",           "title": "Amorous Metro: Cute DJ"     },
+    {   "date": "08-29-2026",       "startTime": "4pm",         "endTime": "6pm",           "title": "Amorous Metro: DJ Slip"     },
+    {   "date": "08-29-2026",       "startTime": "6pm",         "endTime": "8pm",           "title": "Amorous Metro: DJ Time Travel" },
+    {   "date": "08-29-2026",       "startTime": "8pm",         "endTime": "9pm",           "title": "Amorous Metro: Kaedrala"     },
+    {   "date": "08-29-2026",       "startTime": "9pm",         "endTime": "11pm",          "title": "Amorous Metro: Dj Sydnee"     }
 ]
