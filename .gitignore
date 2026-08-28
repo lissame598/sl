@@ -1,0 +1,14 @@
+
+*.tmp
+
+*.blend1
+
+vibe/graphics/design/
+
+vibe/graphics/exported/
+
+vibe/graphics/source/
+
+vibe/models/
+
+destined-for-trash/

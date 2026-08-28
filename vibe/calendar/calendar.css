@@ -1,0 +1,44 @@
+@import "../css/vibe.css";
+
+.next-event {
+    width: 1024px;
+    background-color: var(--brass);
+    color: var(--ink);
+    font-family:'Jost', sans-serif;
+    font-weight: bold;
+    font-size: 36px;
+    margin: 0px;
+    padding: 10px;
+}
+
+.event-table {
+    table-layout: fixed;
+    width: 1024px;
+    background-color: var(--ink);
+    color: var(--brass);
+    font-size: 28px;
+    font-family: 'Jost', sans-serif;
+    font-weight: normal;
+    padding: 10px;
+    vertical-align:top;
+}
+
+.event-table td {
+    border-bottom: 2px solid var(--line); 
+}
+
+.event-table .date-label {
+    font-size: 0.90em;
+    font-weight: 300;
+    color: var(--brass);
+    text-align: right;
+}
+
+.event-table .time-label {
+    font-size: 0.75em;
+    font-weight: 300;
+    color: var(--brass-dim);
+    text-align: right;
+    text-transform: lowercase;
+}
+

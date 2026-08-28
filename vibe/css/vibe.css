@@ -1,0 +1,71 @@
+:root {
+    --bg-main-dark: #12122b;
+    --bg-main-light: #a7150d;
+    --bg-secondary-dark: #121222;
+    --bg-secondary-light: #5e5f61;
+    --bg-deep-dark: #1a1a1a;
+    --text-main-light: #a7150d;
+    --text-secondary-light: #5e5f61;
+    --table-border: #313172;
+    --text-weak-light: #BBBBBB;
+    --text-weaker-light: #888888;
+    --ink: #14110f;
+    --panel: #1c1815;
+    --line: #3a332c;
+    --paper: #ece4d6;
+    --brass: #fdcd65;
+    --brass-dim: #8a7139;
+}
+
+::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-deep-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.top-image {
+    width: 1024px;
+    height: 512px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.fixed-page-container {
+    width: 1022px;
+    min-width: 1022px;
+    max-width: 1022px;
+
+    height: 1022px;
+    min-height: 1022px;
+    max-height: 1022px;
+
+    background-color: var(--bg-deep-dark);
+    margin: 0px;
+    padding: 0px;
+
+    box-sizing: border-box;
+    /* includes padding in 1024px calculation */
+    overflow: hidden;
+    /* crops anything that crosses boundary */
+    position: relative;
+    /* keeps child objects inside */
+}
+
+p {
+    margin: 0px;
+    padding: 0px;
+}

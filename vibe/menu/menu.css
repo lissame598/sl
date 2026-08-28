@@ -1,0 +1,125 @@
+@import "../css/vibe.css";
+
+* { box-sizing: border-box; }
+
+html, body {
+    height: 100%;
+    margin: 0;
+    background-image: url('../graphics/vibe_collage_1024x1024.png');
+    background-size: cover;      /* fills the whole viewport */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* keeps it locked to viewport, not the element */
+}
+
+body {
+    font-family: "Jost", sans-serif;
+    color: var(--paper);
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.title {
+    flex: 0 0 auto;
+    width: 100%;
+    padding: 1.75rem 2rem 1.25rem;
+    text-align: center;
+    border-bottom: 1px solid var(--line);
+    background: transparent;
+}
+
+.title h1 {
+    margin: 0;
+    font-size: 4rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--brass);
+    font-weight: 400;
+}
+
+.content {
+    flex: 1 1 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 0;
+}
+
+.column {
+    padding: 1.5rem 2.25rem;
+    overflow-y: auto;
+}
+
+.column:first-child {
+    border-right: 1px solid var(--line);
+}
+
+.section {
+    margin-bottom: 1.75rem;
+}
+
+.section .subtitle {
+    font-size: 2rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--brass);
+    margin: 0 0 0.15rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--brass-dim);
+}
+
+.section .minititle {
+    font-size: 1.8rem;
+    font-weight: bold;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #ebb757;
+    margin: 0.5rem 0 0.6rem;
+    font-family: "Courier New", monospace;
+}
+
+.items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.items li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin: 0.35rem 0;
+    font-size: 2rem;
+}
+
+.items .item-name {
+    white-space: nowrap;
+}
+
+.items .item-name::after {
+    content: "";
+    flex: 1 1 auto;
+    margin: 0 0.4em;
+    border-bottom: 1px dotted var(--line);
+    transform: translateY(-0.3em);
+}
+
+.items li {
+    flex-wrap: nowrap;
+}
+
+.items .item-price {
+    font-family: "Courier New", monospace;
+    color: var(--brass);
+    white-space: nowrap;
+}
+
+.comment {
+    margin: 0.5rem 0 0;
+    font-size: 1.5rem;
+    font-style: italic;
+    color: #9a8f7a;
+}
