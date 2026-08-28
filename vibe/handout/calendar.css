@@ -1,0 +1,89 @@
+/* * {
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
+*/
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #1a1a1a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fixed-page-container {
+    width: 1024px;
+    min-width: 1024px;
+    max-width: 1024px;
+
+    height: 1024px;
+    min-height: 1024px;
+    max-height: 1024px;
+
+    background-color: #1a1a1a;
+    padding: 0px;
+
+    box-sizing: border-box; /* includes padding in 1024px calculation */
+    overflow: hidden;       /* crops anything that crosses boundary */
+    position: relative;     /* keeps child objects inside */
+}
+
+p {
+    margin: 0px;
+    padding: 0px;
+}
+
+.top-image {
+    width: 1024px;
+    height: 512px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.next-event {
+    width: 1024px;
+    background-color: #ff1929;
+    color: #12122b;
+    font-family:'Questrial', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 36px;
+    margin: 0px;
+    padding: 10px;
+}
+
+.event-table {
+    table-layout: fixed;
+    width: 1024px;
+    background-color: #12122b;
+    /* color: #976ad3; */
+    color: #976ad3;
+    font-size: 28px;
+    font-family: sans-serif;
+    font-weight: normal;
+    padding: 10px;
+    vertical-align:top;
+}
+
+.event-table td {
+    border-bottom: 2px solid #313172; 
+}
+
+.event-table .date-label {
+    font-size: 0.90em;
+    font-weight: 300;
+    color: #BBBBBB;
+    text-align: right;
+}
+
+.event-table .time-label {
+    font-size: 0.75em;
+    font-weight: 300;
+    color: #888888;
+    text-align: right;
+    text-transform: lowercase;
+}
+
