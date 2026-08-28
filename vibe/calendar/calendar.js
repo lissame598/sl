@@ -53,6 +53,12 @@ function getPacificOffset(isoDateStr)
     return `${sign}${absHours}:00`;
 }
 
+function happeningNow(event)
+{
+    const now = new Date();
+    return event.startDateObj <= now && event.endDateObj >= now;
+}
+
 function renderTable(eventsJson)
 {
     const now = new Date();
@@ -63,40 +69,40 @@ function renderTable(eventsJson)
     const dateFormatter = new Intl.DateTimeFormat(navigator.language, { dateStyle: 'full' });
     const timeFormatter = new Intl.DateTimeFormat(navigator.language, { timeStyle: 'short'});
 
-const processedEvents = eventsJson
-    .map(event => {
-        try {
-            const start24 = parseTimeTo24h(event.startTime);
-            const end24 = parseTimeTo24h(event.endTime);
+    const processedEvents = eventsJson
+        .map(event => {
+            try {
+                const start24 = parseTimeTo24h(event.startTime);
+                const end24 = parseTimeTo24h(event.endTime);
 
-            const dateMatch = String(event.date).trim().match(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
-            if(!dateMatch)
-            {
-                console.warn(`Skipping event with unparseable date:`, event);
+                const dateMatch = String(event.date).trim().match(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
+                if(!dateMatch)
+                {
+                    console.warn(`Skipping event with unparseable date:`, event);
+                    return null;
+                }
+                const [, month, day, year] = dateMatch;
+                const isoDate = `${year}-${month.padStart(2,'0')}-${day.padStart(2,'0')}`;
+
+                const offset = getPacificOffset(isoDate);
+                const startIso = `${isoDate}T${start24}:00${offset}`;
+                const endIso = `${isoDate}T${end24}:00${offset}`;
+
+                const startDateObj = new Date(startIso);
+                const endDateObj = new Date(endIso);
+
+                if(isNaN(startDateObj) || isNaN(endDateObj))
+                {
+                    console.warn(`Skipping event with invalid resulting date:`, event, { startIso, endIso });
+                    return null;
+                }
+
+                return { title: event.title, startDateObj, endDateObj };
+            } catch(err) {
+                console.warn(`Error processing event, skipping:`, event, err);
                 return null;
             }
-            const [, month, day, year] = dateMatch;
-            const isoDate = `${year}-${month.padStart(2,'0')}-${day.padStart(2,'0')}`;
-
-            const offset = getPacificOffset(isoDate);
-            const startIso = `${isoDate}T${start24}:00${offset}`;
-            const endIso = `${isoDate}T${end24}:00${offset}`;
-
-            const startDateObj = new Date(startIso);
-            const endDateObj = new Date(endIso);
-
-            if(isNaN(startDateObj) || isNaN(endDateObj))
-            {
-                console.warn(`Skipping event with invalid resulting date:`, event, { startIso, endIso });
-                return null;
-            }
-
-            return { title: event.title, startDateObj, endDateObj };
-        } catch(err) {
-            console.warn(`Error processing event, skipping:`, event, err);
-            return null;
-        }
-    })
+        })
     .filter(event => event !== null)
     .sort((a, b) => a.startDateObj - b.startDateObj)
     .filter(event => event.endDateObj > now)
@@ -132,13 +138,25 @@ const processedEvents = eventsJson
         const localDate = dateFormatter.format(event.startDateObj);
         const localStart = timeFormatter.format(event.startDateObj);
         const localEnd = timeFormatter.format(event.endDateObj);
+        const bgColorNext = getComputedStyle(document.documentElement).getPropertyValue('--brass');
+        const bgColorNow = getComputedStyle(document.documentElement).getPropertyValue('--bg-main-light');
 
         let html = '';
-        
+        let eventLabel = happeningNow(event) ? 'Happening Now' : 'Next';
+        let element = document.getElementById('up-next');
+
         if( index === 0 )
         {
+            if( happeningNow(event) )
+            {
+                element.style.setProperty('background-color', bgColorNow);
+            }
+            else
+            {
+                element.style.setProperty('background-color', bgColorNext);
+            }
             html += `
-                <p style="font-weight:bold;">Next: ${event.title}</p>
+                <p style="font-weight:bold;">${eventLabel}: ${event.title}</p>
                 <p style="font-size: 0.8em; font-weight:lighter">${localDate}, ${localStart} - ${localEnd}${showSltLabel ? ' (SLT)' : ''}</p>
             `;
         }
