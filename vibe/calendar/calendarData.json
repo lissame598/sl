@@ -1,8 +1,4 @@
 [
-    {   "date": "08-29-2026",       "startTime": "6am",         "endTime": "9am",           "title": "Amorous Metro Event, Mirdiam"     },
-    {   "date": "08-29-2026",       "startTime": "2pm",         "endTime": "4pm",           "title": "Amorous Metro Event, Cute DJ"     },
-    {   "date": "08-29-2026",       "startTime": "4pm",         "endTime": "6pm",           "title": "Amorous Metro Event, DJ Slip"     },
-    {   "date": "08-29-2026",       "startTime": "6pm",         "endTime": "8pm",           "title": "Amorous Metro Event, DJ Time Travel" },
-    {   "date": "08-29-2026",       "startTime": "8pm",         "endTime": "9pm",           "title": "Amorous Metro Event, Kaedrala"     },
-    {   "date": "08-29-2026",       "startTime": "9pm",         "endTime": "11pm",          "title": "Amorous Metro Event, Dj Sydnee"     }
+    {   "date": "08-30-2026",       "startTime": "10am",         "endTime": "12pm",           "title": "Test Event 1"     },
+    {   "date": "08-30-2026",       "startTime": "9pm",         "endTime": "11pm",          "title": "Test Event 2"     }
 ]
